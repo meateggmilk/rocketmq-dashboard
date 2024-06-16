@@ -33,4 +33,6 @@ public interface OpsService {
     boolean updateUseTLS(boolean useTLS);
 
     void addNameSvrAddr(String namesrvAddr);
+
+    void delNameSvrAddr(String namesrvAddr);
 }

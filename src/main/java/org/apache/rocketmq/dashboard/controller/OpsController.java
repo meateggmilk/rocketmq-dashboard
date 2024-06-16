@@ -57,6 +57,15 @@ public class OpsController {
         return true;
     }
 
+    @RequestMapping(value = "/deleteNameSvrAddr.do", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delNameSvrAddr(@RequestParam String namesrvAddr) {
+        Preconditions.checkArgument(StringUtils.isNotEmpty(namesrvAddr),
+                "namesrvAddr can not be blank");
+        opsService.delNameSvrAddr(namesrvAddr);
+        return true;
+    }
+
     @RequestMapping(value = "/updateIsVIPChannel.do", method = RequestMethod.POST)
     @ResponseBody
     public Object updateIsVIPChannel(@RequestParam String useVIPChannel) {

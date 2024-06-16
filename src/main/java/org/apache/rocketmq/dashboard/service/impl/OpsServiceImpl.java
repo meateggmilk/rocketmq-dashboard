@@ -20,6 +20,8 @@ import com.google.common.collect.Maps;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.rocketmq.dashboard.config.RMQConfigure;
 import org.apache.rocketmq.dashboard.service.AbstractCommonService;
@@ -94,5 +96,17 @@ public class OpsServiceImpl extends AbstractCommonService implements OpsService 
             namesrvAddrs.add(namesrvAddr);
         }
         configure.setNamesrvAddrs(namesrvAddrs);
+    }
+
+    @Override
+    public void delNameSvrAddr(String namesrvAddr) {
+        List<String> namesrvAddrs = configure.getNamesrvAddrs();
+        if (namesrvAddrs != null) {
+            namesrvAddrs.remove(namesrvAddr);
+        }
+        // if not empty, set random namesrvAddr
+        if (CollectionUtils.isNotEmpty(namesrvAddrs)) {
+            configure.setNamesrvAddr(namesrvAddrs.get(0));
+        }
     }
 }

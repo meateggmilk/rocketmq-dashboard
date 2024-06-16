@@ -55,6 +55,24 @@ app.controller('opsController', ['$scope', '$location', '$http', 'Notification',
         });
     };
 
+    $scope.deleteNameSvrAddr = function () {
+        $http({
+            method: "POST",
+            url: "ops/deleteNameSvrAddr.do",
+            params: {namesrvAddr: $scope.selectedNamesrv}
+        }).success(function (resp) {
+            if (resp.status == 0) {
+                Notification.info({message: "SUCCESS", delay: 2000});
+                console.log($scope.namesvrAddrList);
+                $scope.namesvrAddrList.splice($scope.namesvrAddrList.indexOf($scope.selectedNamesrv), 1);
+                console.log($scope.namesvrAddrList);
+                $scope.selectedNamesrv = $scope.namesvrAddrList[0];
+            } else {
+                Notification.error({message: resp.errMsg, delay: 2000});
+            }
+        });
+    };
+
     $scope.addNameSvrAddr = function () {
         $http({
             method: "POST",
